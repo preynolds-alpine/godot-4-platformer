@@ -1,0 +1,163 @@
+[gd_scene load_steps=14 format=3 uid="uid://b8im8l53sqo8q"]
+
+[ext_resource type="Script" path="res://levels/level_1.gd" id="1_mecdr"]
+[ext_resource type="PackedScene" uid="uid://drcx7okygdgfi" path="res://backgrounds/parallax_background.tscn" id="2_8xt2j"]
+[ext_resource type="TileSet" uid="uid://o1uejhtjrxsu" path="res://levels/ground.tres" id="3_7pfmq"]
+[ext_resource type="PackedScene" uid="uid://chfw10toqddeu" path="res://HUD/hud.tscn" id="3_o3tc2"]
+[ext_resource type="PackedScene" uid="uid://d2agne66okev0" path="res://player/player.tscn" id="4_rq7aw"]
+[ext_resource type="Texture2D" uid="uid://1i7n8s02nwg8" path="res://levels/flag.png" id="5_wyupu"]
+[ext_resource type="PackedScene" uid="uid://bdp4pgcpyqi2g" path="res://coin/coin.tscn" id="6_kaknn"]
+[ext_resource type="PackedScene" uid="uid://c4a5a0ljy8m1k" path="res://enemy/enemy.tscn" id="7_kpgq5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5klt"]
+size = Vector2(4791, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7um8d"]
+atlas = ExtResource("5_wyupu")
+region = Rect2(0, 0, 64, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kolf"]
+atlas = ExtResource("5_wyupu")
+region = Rect2(64, 0, 64, 130)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ylhpu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7um8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kolf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k4o73"]
+size = Vector2(3, 88)
+
+[node name="Level_1" type="Node2D"]
+script = ExtResource("1_mecdr")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_8xt2j")]
+
+[node name="HUD" parent="." instance=ExtResource("3_o3tc2")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_7pfmq")
+format = 2
+layer_0/tile_data = PackedInt32Array(524291, 0, 0, 458755, 0, 0, 458756, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 0, 0, 393237, 0, 0, 327705, 0, 0, 327706, 0, 0, 262170, 0, 0, 262171, 0, 0, 327707, 0, 0, 327708, 0, 0, 262172, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 589847, 0, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 786461, 0, 0, 786462, 0, 0, 786463, 0, 0, 786464, 0, 0, 786465, 0, 0, 786466, 0, 0, 786467, 0, 0, 720931, 0, 0, 786460, 0, 0, 720924, 0, 0, 720932, 0, 0, 720933, 0, 0, 720934, 0, 0, 720935, 0, 0, 655399, 0, 0, 655400, 0, 0, 655401, 0, 0, 655402, 0, 0, 655403, 0, 0, 524323, 0, 0, 524324, 0, 0, 524325, 0, 0, 524326, 0, 0, 393248, 0, 0, 393249, 0, 0, 393259, 0, 0, 393260, 0, 0, 393261, 0, 0, 393262, 0, 0, 786479, 0, 0, 786480, 0, 0, 786481, 0, 0, 786482, 0, 0, 786483, 0, 0, 589876, 0, 0, 393270, 0, 0, 262200, 0, 0)
+
+[node name="Fallzone" type="Area2D" parent="."]
+position = Vector2(390, -100)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fallzone"]
+position = Vector2(1960.5, 1051.5)
+shape = SubResource("RectangleShape2D_v5klt")
+debug_color = Color(0.874456, 0.281713, 0.517278, 0.42)
+
+[node name="Flag" type="Area2D" parent="."]
+position = Vector2(3626, 202)
+collision_layer = 8
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Flag"]
+sprite_frames = SubResource("SpriteFrames_ylhpu")
+autoplay = "default"
+frame_progress = 0.640056
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flag"]
+position = Vector2(-10, -3)
+shape = SubResource("RectangleShape2D_k4o73")
+
+[node name="Player" parent="." instance=ExtResource("4_rq7aw")]
+position = Vector2(979, 586)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+limit_left = 0
+limit_top = 0
+limit_right = 3688
+limit_bottom = 900
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(399, 464)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(573, 465)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1178, 350)
+
+[node name="Coin4" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1322, 237)
+
+[node name="Coin5" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1553, 541)
+
+[node name="Coin6" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1665, 541)
+
+[node name="Coin7" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1874, 477)
+
+[node name="Coin8" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1810, 193)
+
+[node name="Coin9" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1687, 193)
+
+[node name="Coin10" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(1687, 193)
+
+[node name="Coin11" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(2140, 340)
+
+[node name="Coin12" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(2390, 462)
+
+[node name="Coin13" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(2588, 578)
+
+[node name="Coin14" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(2796, 349)
+
+[node name="Coin15" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(2877, 349)
+
+[node name="Coin16" parent="Coins" instance=ExtResource("6_kaknn")]
+position = Vector2(3079, 720)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("7_kpgq5")]
+position = Vector2(505, 467)
+shoot_time_max = 6
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("7_kpgq5")]
+position = Vector2(1287, 341)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("7_kpgq5")]
+position = Vector2(1959, 728)
+shoot_time_min = 1
+shoot_time_max = 6
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource("7_kpgq5")]
+position = Vector2(2064, 345)
+
+[node name="Enemy5" parent="Enemies" instance=ExtResource("7_kpgq5")]
+position = Vector2(2425, 662)
+
+[node name="Enemy6" parent="Enemies" instance=ExtResource("7_kpgq5")]
+position = Vector2(2910, 344)
+
+[connection signal="body_entered" from="Fallzone" to="." method="_on_fallzone_body_entered"]
+[connection signal="body_entered" from="Flag" to="." method="_on_flag_body_entered"]

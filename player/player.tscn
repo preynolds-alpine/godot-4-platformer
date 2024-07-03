@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2agne66okev0"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_rfpi8"]
+[ext_resource type="SpriteFrames" uid="uid://b210nhn4osppa" path="res://player/player_anim.tres" id="2_ywxma"]
+[ext_resource type="AudioStream" uid="uid://c88umgoq6oo8a" path="res://player/player_shoot_sound.ogg" id="3_vnly1"]
+[ext_resource type="AudioStream" uid="uid://6pys5kp6mo8m" path="res://player/player_hit_sound.mp3" id="4_hfc6j"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_46jkt"]
+radius = 21.0
+height = 54.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l1e1h"]
+radius = 28.0
+height = 70.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 30
+script = ExtResource("1_rfpi8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_ywxma")
+animation = &"shoot"
+autoplay = "idle"
+frame = 5
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_46jkt")
+
+[node name="Cool_Down_Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(32, -6)
+
+[node name="Shoot_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vnly1")
+
+[node name="Player_Hitbox" type="Area2D" parent="." groups=["player_hitbox"]]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Hitbox"]
+position = Vector2(-3, -3)
+shape = SubResource("CapsuleShape2D_l1e1h")
+debug_color = Color(0.894412, 0.174429, 0.663393, 0.42)
+
+[node name="Player_Hit_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hfc6j")
+
+[connection signal="timeout" from="Cool_Down_Timer" to="." method="_on_cool_down_timer_timeout"]
+[connection signal="area_entered" from="Player_Hitbox" to="." method="_on_player_hitbox_area_entered"]

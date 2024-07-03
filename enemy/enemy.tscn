@@ -1,0 +1,124 @@
+[gd_scene load_steps=12 format=3 uid="uid://c4a5a0ljy8m1k"]
+
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_kov08"]
+[ext_resource type="Texture2D" uid="uid://dtvleuaxhbasl" path="res://enemy/enemy.png" id="2_8ypyn"]
+[ext_resource type="Texture2D" uid="uid://cnrvdf24we4lb" path="res://enemy/enemy Shoot.png" id="2_ujkcy"]
+[ext_resource type="AudioStream" uid="uid://bgh7jijrm1vn1" path="res://enemy/enemy_shoot_sound.ogg" id="4_hhebi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lj5wx"]
+atlas = ExtResource("2_8ypyn")
+region = Rect2(65, 0, 65, 65)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kovit"]
+atlas = ExtResource("2_8ypyn")
+region = Rect2(0, 0, 65, 65)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uojud"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ujkcy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ujkcy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ujkcy")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lj5wx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kovit")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6aq6"]
+size = Vector2(36, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vjrhj"]
+size = Vector2(50, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4boeq"]
+size = Vector2(40, 9)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3v146"]
+radius = 28.0179
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_kov08")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uojud")
+animation = &"shoot"
+autoplay = "walk"
+
+[node name="Feet" type="CollisionShape2D" parent="."]
+position = Vector2(0, 29)
+shape = SubResource("RectangleShape2D_k6aq6")
+metadata/_edit_group_ = true
+
+[node name="Edge_Checker" type="RayCast2D" parent="."]
+position = Vector2(0, 28)
+collision_mask = 2
+
+[node name="Side_Hurtbox" type="Area2D" parent="." groups=["enemy_hurtbox"]]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Side_Hurtbox"]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_vjrhj")
+debug_color = Color(0.883602, 0.210124, 0.648726, 0.42)
+
+[node name="Top_Hitbox" type="Area2D" parent="." groups=["enemy_hitbox"]]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top_Hitbox"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_4boeq")
+debug_color = Color(0.241188, 0.625314, 0.348655, 0.42)
+
+[node name="Bullet_Hitbox" type="Area2D" parent="." groups=["enemy_hitbox"]]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_Hitbox"]
+position = Vector2(-1, 14)
+shape = SubResource("CircleShape2D_3v146")
+debug_color = Color(0.577758, 0.547248, 0.226852, 0.42)
+
+[node name="Cool_Down_Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Shoot_Timer" type="Timer" parent="."]
+
+[node name="Change_Direction_Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.999999, 0)
+scale = Vector2(4.9, 1)
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(0, 20)
+
+[node name="Shoot_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hhebi")
+
+[connection signal="body_entered" from="Side_Hurtbox" to="." method="_on_side_hurtbox_body_entered"]
+[connection signal="body_entered" from="Top_Hitbox" to="." method="_on_top_hitbox_body_entered"]
+[connection signal="area_entered" from="Bullet_Hitbox" to="." method="_on_bullet_hitbox_area_entered"]
+[connection signal="timeout" from="Cool_Down_Timer" to="." method="_on_cool_down_timer_timeout"]
+[connection signal="timeout" from="Shoot_Timer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="Change_Direction_Timer" to="." method="_on_change_direction_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

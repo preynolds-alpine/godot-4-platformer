@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://d280kkmb5a620"]
+
+[ext_resource type="Script" path="res://enemy/enemy_bullet.gd" id="1_ee8a0"]
+[ext_resource type="Texture2D" uid="uid://bhfxd6wtia5rg" path="res://enemy/enemy_projectile.png" id="2_u5rmk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpjej"]
+atlas = ExtResource("2_u5rmk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmmda"]
+atlas = ExtResource("2_u5rmk")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rotcq"]
+atlas = ExtResource("2_u5rmk")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2stlp"]
+atlas = ExtResource("2_u5rmk")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h68d4"]
+atlas = ExtResource("2_u5rmk")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wg70o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpjej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmmda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rotcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2stlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h68d4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_srnc7"]
+radius = 7.07107
+
+[node name="Enemy_Bullet" type="Area2D" groups=["enemy_bullet"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_ee8a0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wg70o")
+autoplay = "default"
+frame = 1
+frame_progress = 0.864592
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_srnc7")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-07, -1.19209e-07)
+scale = Vector2(0.7, 0.7)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

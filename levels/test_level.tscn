@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://1be836tthfqh"]
+
+[ext_resource type="Script" path="res://levels/test_level.gd" id="1_o1j7j"]
+[ext_resource type="TileSet" uid="uid://o1uejhtjrxsu" path="res://levels/ground.tres" id="1_piqoj"]
+[ext_resource type="PackedScene" uid="uid://d2agne66okev0" path="res://player/player.tscn" id="2_mhcxu"]
+[ext_resource type="PackedScene" uid="uid://drcx7okygdgfi" path="res://backgrounds/parallax_background.tscn" id="3_vx05y"]
+[ext_resource type="Texture2D" uid="uid://1i7n8s02nwg8" path="res://levels/flag.png" id="5_ykr6e"]
+[ext_resource type="PackedScene" uid="uid://bdp4pgcpyqi2g" path="res://coin/coin.tscn" id="6_uwnju"]
+[ext_resource type="PackedScene" uid="uid://chfw10toqddeu" path="res://HUD/hud.tscn" id="7_r3rys"]
+[ext_resource type="PackedScene" uid="uid://c4a5a0ljy8m1k" path="res://enemy/enemy.tscn" id="8_frn88"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efia0"]
+size = Vector2(1683, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3gkg"]
+atlas = ExtResource("5_ykr6e")
+region = Rect2(0, 0, 64, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmyby"]
+atlas = ExtResource("5_ykr6e")
+region = Rect2(64, 0, 64, 130)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7s6m3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3gkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hmyby")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6f61y"]
+size = Vector2(35.5, 103.5)
+
+[node name="Test_Level" type="Node2D"]
+script = ExtResource("1_o1j7j")
+
+[node name="Ground" type="TileMap" parent="."]
+tile_set = ExtResource("1_piqoj")
+format = 2
+layer_0/tile_data = PackedInt32Array(524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_mhcxu")]
+position = Vector2(443, 462)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_vx05y")]
+
+[node name="Fallzone" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fallzone"]
+position = Vector2(520.5, 825)
+shape = SubResource("RectangleShape2D_efia0")
+debug_color = Color(0.869481, 0.203108, 0.71025, 0.42)
+
+[node name="Flag" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Flag"]
+position = Vector2(871, 457)
+sprite_frames = SubResource("SpriteFrames_7s6m3")
+autoplay = "default"
+frame_progress = 0.301739
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flag"]
+position = Vector2(866.25, 456.25)
+shape = SubResource("RectangleShape2D_6f61y")
+
+[node name="Coins_Group" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins_Group" instance=ExtResource("6_uwnju")]
+position = Vector2(715, 454)
+
+[node name="Coin2" parent="Coins_Group" instance=ExtResource("6_uwnju")]
+position = Vector2(607, 457)
+
+[node name="HUD" parent="." instance=ExtResource("7_r3rys")]
+
+[node name="Enemy_Group" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemy_Group" instance=ExtResource("8_frn88")]
+position = Vector2(773, 461)
+
+[connection signal="body_entered" from="Fallzone" to="." method="_on_fallzone_body_entered"]
+[connection signal="body_entered" from="Flag" to="." method="_on_flag_body_entered"]
