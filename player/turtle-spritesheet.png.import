@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7n2glsdrovdm"
-path="res://.godot/imported/player_side_jump.png-69de43bb3891b26fbf620c105c372193.ctex"
+uid="uid://bveqvhf88nmo2"
+path="res://.godot/imported/turtle-spritesheet.png-44c25e521e91772805c41b54e9f5272d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/player_side_jump.png"
-dest_files=["res://.godot/imported/player_side_jump.png-69de43bb3891b26fbf620c105c372193.ctex"]
+source_file="res://player/turtle-spritesheet.png"
+dest_files=["res://.godot/imported/turtle-spritesheet.png-44c25e521e91772805c41b54e9f5272d.ctex"]
 
 [params]
 

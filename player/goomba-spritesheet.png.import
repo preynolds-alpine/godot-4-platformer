@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6jiklxdkehvk"
-path="res://.godot/imported/player_shoot.png-aae05b9454e80eb11086bd499d3ea3de.ctex"
+uid="uid://cit7yxdc4xruu"
+path="res://.godot/imported/goomba-spritesheet.png-24d86257ff3eee6eb18e908b71a5cd70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/player_shoot.png"
-dest_files=["res://.godot/imported/player_shoot.png-aae05b9454e80eb11086bd499d3ea3de.ctex"]
+source_file="res://player/goomba-spritesheet.png"
+dest_files=["res://.godot/imported/goomba-spritesheet.png-24d86257ff3eee6eb18e908b71a5cd70.ctex"]
 
 [params]
 

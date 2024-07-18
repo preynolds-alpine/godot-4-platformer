@@ -14,10 +14,10 @@ var direction = 1
 var jump_count = 0
 var last_direction
 var cool_down = true
-var bullet = preload("res://player/player_bullet.tscn")
+#var bullet = preload("res://player/player_bullet.tscn")
 var death_scene = preload("res://player/player_death.tscn")
-enum State {idle, walk, jump, shoot}
-@onready var start_muzzle_position = $Muzzle.position.x
+enum State {idle, walk, jump}
+#@onready var start_muzzle_position = $Muzzle.position.x
 #this function runs when the player is loaded into a scene
 func _ready():
 	current_state = State.idle
@@ -28,8 +28,7 @@ func _physics_process(delta):
 	player_falling(delta)#add gravity to player
 	player_walk()#is the player moving left or right
 	player_jump()#is the player jumping
-	muzzle_position()#set the position of the muzzle
-	player_shoot()#is the player shooting
+#	muzzle_position()#set the position of the muzzle
 	move_and_slide()#This will actually move the player to a new position
 	player_animation()#change the player's animation
 	#print("Current State: ", State.keys()[current_state])
@@ -64,8 +63,8 @@ func player_animation():
 		$AnimatedSprite2D.play("walk")
 	elif current_state == State.jump:
 		$AnimatedSprite2D.play("jump")
-	elif current_state == State.shoot:
-		$AnimatedSprite2D.play("shoot")
+	#elif current_state == State.shoot:
+	#	$AnimatedSprite2D.play("shoot")
 	#flip horizontally if facing different direction
 	if last_direction < 0:
 		$AnimatedSprite2D.flip_h = true
@@ -85,26 +84,26 @@ func player_jump():
 		velocity.x = direction * speed#change my x movement by direction and speed
 		last_direction = direction
 
-func player_shoot():
+#func player_shoot():
 	#only shoot if shoot button pressed and cooled down
-	if Input.is_action_just_pressed("shoot") and cool_down:
-		current_state = State.shoot
-		$Cool_Down_Timer.start()#Start the cool down time
-		var new_bullet = bullet.instantiate() #Create a new bullet object
-		new_bullet.transform = $Muzzle.get_global_transform()#Move that new bullet to the Muzzle
-		new_bullet.set_direction(last_direction)
-		$Shoot_Sound.play()
-		owner.add_child(new_bullet)#Add the bullet object to the level
-		cool_down = false
+#	if Input.is_action_just_pressed("shoot") and cool_down:
+#		current_state = State.shoot
+#		$Cool_Down_Timer.start()#Start the cool down time
+#		var new_bullet = bullet.instantiate() #Create a new bullet object
+#		new_bullet.transform = $Muzzle.get_global_transform()#Move that new bullet to the Muzzle
+#		new_bullet.set_direction(last_direction)
+#		$Shoot_Sound.play()
+#		owner.add_child(new_bullet)#Add the bullet object to the level
+#		cool_down = false
 	
-func muzzle_position():
+#func muzzle_position():
 	#move the muzzle position if our direction changes
 	#if the direction is positive, the muzzle position is positive
 	#if the direction is negative, the muzzle position is negative
-	if direction > 0:
-		$Muzzle.position.x = start_muzzle_position
-	elif direction < 0:
-		$Muzzle.position.x = -start_muzzle_position
+#	if direction > 0:
+#		$Muzzle.position.x = start_muzzle_position
+#	elif direction < 0:
+#		$Muzzle.position.x = -start_muzzle_position
 
 func _on_cool_down_timer_timeout():
 	cool_down = true #reset cool down to true after timer ends

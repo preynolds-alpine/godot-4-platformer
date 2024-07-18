@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk6mcc6nnpij7"
-path="res://.godot/imported/projectile_2_player.png-c6a50469f0a5f4914b126348cdf0d655.ctex"
+uid="uid://dtwu6mfbyu7"
+path="res://.godot/imported/mario-ground-tiles.png-28bc35311c2e7766160ee327a54c92bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/projectile_2_player.png"
-dest_files=["res://.godot/imported/projectile_2_player.png-c6a50469f0a5f4914b126348cdf0d655.ctex"]
+source_file="res://levels/mario-ground-tiles.png"
+dest_files=["res://.godot/imported/mario-ground-tiles.png-28bc35311c2e7766160ee327a54c92bb.ctex"]
 
 [params]
 
