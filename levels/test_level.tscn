@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://1be836tthfqh"]
+[gd_scene load_steps=15 format=3 uid="uid://1be836tthfqh"]
 
 [ext_resource type="Script" path="res://levels/test_level.gd" id="1_o1j7j"]
 [ext_resource type="TileSet" uid="uid://o1uejhtjrxsu" path="res://levels/ground.tres" id="1_piqoj"]
+[ext_resource type="TileSet" uid="uid://dha0j5pgwl8wu" path="res://levels/pipe-tiles.tres" id="2_5br80"]
+[ext_resource type="TileSet" uid="uid://dp7ngdhogeufu" path="res://levels/background-objects.tres" id="2_5s4w3"]
 [ext_resource type="PackedScene" uid="uid://d2agne66okev0" path="res://player/player.tscn" id="2_mhcxu"]
 [ext_resource type="PackedScene" uid="uid://drcx7okygdgfi" path="res://backgrounds/parallax_background.tscn" id="3_vx05y"]
-[ext_resource type="Texture2D" uid="uid://1i7n8s02nwg8" path="res://levels/flag.png" id="5_ykr6e"]
+[ext_resource type="Texture2D" uid="uid://dpyw6kkdl2a5r" path="res://objects/mario-flags.png" id="4_qy0l1"]
 [ext_resource type="PackedScene" uid="uid://bdp4pgcpyqi2g" path="res://coin/coin.tscn" id="6_uwnju"]
 [ext_resource type="PackedScene" uid="uid://chfw10toqddeu" path="res://HUD/hud.tscn" id="7_r3rys"]
 [ext_resource type="PackedScene" uid="uid://c4a5a0ljy8m1k" path="res://enemy/enemy.tscn" id="8_frn88"]
@@ -12,22 +14,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efia0"]
 size = Vector2(1683, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r3gkg"]
-atlas = ExtResource("5_ykr6e")
-region = Rect2(0, 0, 64, 130)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hmyby"]
-atlas = ExtResource("5_ykr6e")
-region = Rect2(64, 0, 64, 130)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp886"]
+atlas = ExtResource("4_qy0l1")
+region = Rect2(128, 0, 32, 171)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7s6m3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r3gkg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hmyby")
+"texture": SubResource("AtlasTexture_pp886")
 }],
 "loop": true,
 "name": &"default",
@@ -35,22 +30,35 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6f61y"]
-size = Vector2(35.5, 103.5)
+size = Vector2(58, 596)
 
 [node name="Test_Level" type="Node2D"]
 script = ExtResource("1_o1j7j")
 
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_vx05y")]
+
+[node name="Background-objects" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("2_5s4w3")
+format = 2
+layer_0/tile_data = PackedInt32Array(851987, 655360, 0, 458765, 1179648, 8)
+
 [node name="Ground" type="TileMap" parent="."]
+scale = Vector2(4, 4)
 tile_set = ExtResource("1_piqoj")
 format = 2
-layer_0/tile_data = PackedInt32Array(524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0)
+layer_0/tile_data = PackedInt32Array(524294, 2, 0, 524296, 2, 0, 524297, 2, 0, 524298, 2, 0, 524299, 2, 0, 524300, 2, 0, 524301, 2, 0, 524293, 65538, 0, 524295, 2, 0, 327689, 65538, 0, 327690, 196609, 0, 458757, 3, 0, 327688, 65538, 0)
+
+[node name="Pipes" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = ExtResource("2_5br80")
+format = 2
+layer_0/tile_data = PackedInt32Array(458757, 1048576, 25)
 
 [node name="Player" parent="." instance=ExtResource("2_mhcxu")]
 position = Vector2(443, 462)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="ParallaxBackground" parent="." instance=ExtResource("3_vx05y")]
 
 [node name="Fallzone" type="Area2D" parent="."]
 collision_layer = 16
@@ -64,13 +72,14 @@ debug_color = Color(0.869481, 0.203108, 0.71025, 0.42)
 collision_layer = 8
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Flag"]
-position = Vector2(871, 457)
+position = Vector2(837, 178)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_7s6m3")
 autoplay = "default"
 frame_progress = 0.301739
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flag"]
-position = Vector2(866.25, 456.25)
+position = Vector2(855, 148)
 shape = SubResource("RectangleShape2D_6f61y")
 
 [node name="Coins_Group" type="Node2D" parent="."]

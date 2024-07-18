@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7n2glsdrovdm"
-path="res://.godot/imported/player_side_jump.png-69de43bb3891b26fbf620c105c372193.ctex"
+uid="uid://dpyw6kkdl2a5r"
+path="res://.godot/imported/mario-flags.png-4282fd3dbcad0fe12963c25053a6bfaf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/player_side_jump.png"
-dest_files=["res://.godot/imported/player_side_jump.png-69de43bb3891b26fbf620c105c372193.ctex"]
+source_file="res://objects/mario-flags.png"
+dest_files=["res://.godot/imported/mario-flags.png-4282fd3dbcad0fe12963c25053a6bfaf.ctex"]
 
 [params]
 

@@ -44,8 +44,8 @@ collision_mask = 2
 script = ExtResource("1_kov08")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 10)
-scale = Vector2(3.182, 3)
+position = Vector2(-4, 5)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_uojud")
 animation = &"walk"
 autoplay = "walk"

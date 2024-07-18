@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1tdeah85mg1f"
-path="res://.godot/imported/player_walk.png-59515d82f701e5545419ecd7b3460e66.ctex"
+uid="uid://cxxhgkixx1o2n"
+path="res://.godot/imported/bricks.png-a8942308beff94be90b9fe25df5d52b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/player_walk.png"
-dest_files=["res://.godot/imported/player_walk.png-59515d82f701e5545419ecd7b3460e66.ctex"]
+source_file="res://levels/bricks.png"
+dest_files=["res://.godot/imported/bricks.png-a8942308beff94be90b9fe25df5d52b5.ctex"]
 
 [params]
 
